@@ -95,202 +95,162 @@
   <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avis et notation</title>
-  <style>
-    /* Style simple avec HTML et CSS internes */
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f4f4f9;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avis et Notation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
 
-    .avis-container {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      width: 300px;
-      margin: 0 auto;
-    }
+        .avis-section {
+            width: 50%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+        .notation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 30px;
+        }
 
-    input[type="text"], textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      margin-bottom: 15px;
-      font-size: 14px;
-    }
+        .notation input {
+            display: none;
+        }
 
-    .note {
-      margin-bottom: 20px;
-    }
+        .notation label {
+            cursor: pointer;
+            font-size: 30px;
+        }
 
-    .rating {
-      display: flex;
-      justify-content: space-between;
-      font-size: 30px;
-    }
+        .notation input:checked ~ label {
+            color: gold;
+        }
 
-    .car {
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-    input[type="radio"] {
-      display: none;
-    }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-    input[type="radio"]:checked + label {
-      color: gold;
-    }
+        button:hover {
+            background-color: #218838;
+        }
 
-    label:hover {
-      transform: scale(1.2);
-    }
-
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-      font-size: 16px;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    .error-message {
-      color: red;
-      font-size: 12px;
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    .avis-soumis {
-      margin-top: 30px;
-      background-color: #f9f9f9;
-      padding: 15px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .avis-item {
-      margin-bottom: 15px;
-      padding: 10px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-  </style>
+        .avis {
+            margin-top: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="avis-container">
-    <h2>Laissez votre avis !</h2>
+    <section class="avis-section">
+        <h2>Laissez un avis</h2>
+        <form id="avisForm">
+            <div class="notation">
+                <input type="radio" id="star1" name="note" value="1">
+                <label for="star1">🚗</label>
 
-    <!-- Champ pour le pseudo -->
-    <input type="text" id="pseudo" placeholder="Entrez votre pseudo" />
+                <input type="radio" id="star2" name="note" value="2">
+                <label for="star2">🚗</label>
 
-    <!-- Formulaire pour ajouter un avis -->
-    <textarea id="avis" placeholder="Écrivez votre avis ici..." rows="4" cols="50"></textarea>
+                <input type="radio" id="star3" name="note" value="3">
+                <label for="star3">🚗</label>
 
-    <div class="note">
-      <label>Notez cette voiture :</label>
-      <div class="rating">
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1" class="car">🚗</label>
+                <input type="radio" id="star4" name="note" value="4">
+                <label for="star4">🚗</label>
 
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2" class="car">🚗</label>
+                <input type="radio" id="star5" name="note" value="5">
+                <label for="star5">🚗</label>
+            </div>
 
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3" class="car">🚗</label>
+            <textarea id="commentaire" name="commentaire" placeholder="Votre avis..." required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
 
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4" class="car">🚗</label>
+        <h3>Avis des utilisateurs</h3>
+        <div id="avisListe"></div>
+    </section>
 
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5" class="car">🚗</label>
-      </div>
-    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("avisForm");
+            const avisListe = document.getElementById("avisListe");
 
-    <button onclick="soumettreAvis()">Soumettre l'avis</button>
+            // Charger les avis stockés dans LocalStorage
+            function chargerAvis() {
+                const avisEnregistres = JSON.parse(localStorage.getItem("avis")) || [];
+                avisListe.innerHTML = "";
+                avisEnregistres.forEach(avis => {
+                    ajouterAvis(avis.note, avis.commentaire);
+                });
+            }
 
-    <div id="error-message" class="error-message"></div>
-  </div>
+            // Ajouter un avis à la liste
+            function ajouterAvis(note, commentaire) {
+                const avisDiv = document.createElement("div");
+                avisDiv.classList.add("avis");
+                avisDiv.innerHTML = `
+                    <p><strong>Note : </strong> ${"🚗".repeat(note)}</p>
+                    <p>${commentaire}</p>
+                `;
+                avisListe.prepend(avisDiv);
+            }
 
-  <div id="avis-soumis" class="avis-soumis">
-    <h3>Avis soumis :</h3>
-    <!-- Les avis seront ajoutés ici -->
-  </div>
+            // Gérer la soumission du formulaire
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
 
-  <script>
-    // Fonction pour soumettre l'avis
-    function soumettreAvis() {
-      // Récupérer l'avis, le pseudo et la note sélectionnée
-      const pseudo = document.getElementById('pseudo').value;
-      const avis = document.getElementById('avis').value;
-      const rating = document.querySelector('input[name="rating"]:checked');
+                const noteSelectionnee = document.querySelector('input[name="note"]:checked');
+                const commentaire = document.getElementById("commentaire").value;
 
-      // Vérification si le pseudo a été rempli
-      if (pseudo.trim() === "") {
-        document.getElementById('error-message').innerText = "Veuillez entrer un pseudo avant de soumettre.";
-        return;
-      }
+                if (!noteSelectionnee) {
+                    alert("Veuillez sélectionner une note.");
+                    return;
+                }
 
-      // Vérification si un avis a été écrit
-      if (avis.trim() === "") {
-        document.getElementById('error-message').innerText = "Veuillez écrire un avis avant de soumettre.";
-        return;
-      }
+                const note = noteSelectionnee.value;
 
-      // Vérification si une note a été sélectionnée
-      if (!rating) {
-        document.getElementById('error-message').innerText = "Veuillez sélectionner une note avant de soumettre.";
-        return;
-      }
+                // Ajouter l'avis à la liste et l'enregistrer dans LocalStorage
+                ajouterAvis(note, commentaire);
+                const avisEnregistres = JSON.parse(localStorage.getItem("avis")) || [];
+                avisEnregistres.push({ note, commentaire });
+                localStorage.setItem("avis", JSON.stringify(avisEnregistres));
 
-      // Si toutes les validations passent, afficher un message de succès
-      document.getElementById('error-message').innerText = ""; // Réinitialiser le message d'erreur
+                // Réinitialiser le formulaire
+                form.reset();
+            });
 
-      // Créer un nouvel élément pour afficher l'avis, le pseudo et la note
-      const avisContainer = document.getElementById('avis-soumis');
-      const newAvis = document.createElement('div');
-      newAvis.classList.add('avis-item');
-
-      const starCount = rating.value;
-      let stars = '';
-      for (let i = 0; i < starCount; i++) {
-        stars += '🚗';
-      }
-
-      newAvis.innerHTML = `<strong>${pseudo} a donné une note de ${stars}</strong><br><p>${avis}</p>`;
-
-      // Ajouter le nouvel avis à la section "Avis soumis"
-      avisContainer.appendChild(newAvis);
-
-      // Réinitialiser le formulaire
-      document.getElementById('pseudo').value = "";
-      document.getElementById('avis').value = "";
-      document.querySelectorAll('input[name="rating"]').forEach(input => input.checked = false);
-    }
-  </script>
+            // Charger les avis au démarrage
+            chargerAvis();
+        });
+    </script>
 
 </body>
 </html>
+
 
   
 
