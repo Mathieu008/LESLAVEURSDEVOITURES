@@ -92,7 +92,7 @@
   
 
 
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -134,11 +134,10 @@
             color: gold;
         }
 
-        textarea {
+        input, textarea {
             width: 100%;
-            height: 100px;
-            margin-top: 10px;
             padding: 10px;
+            margin-top: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
@@ -169,6 +168,8 @@
     <section class="avis-section">
         <h2>Laissez un avis</h2>
         <form id="avisForm">
+            <input type="text" id="pseudo" placeholder="Votre pseudo" required>
+
             <div class="notation">
                 <input type="radio" id="star1" name="note" value="1">
                 <label for="star1">🚗</label>
@@ -186,7 +187,7 @@
                 <label for="star5">🚗</label>
             </div>
 
-            <textarea id="commentaire" name="commentaire" placeholder="Votre avis..." required></textarea>
+            <textarea id="commentaire" placeholder="Votre avis..." required></textarea>
             <button type="submit">Envoyer</button>
         </form>
 
@@ -204,16 +205,16 @@
                 const avisEnregistres = JSON.parse(localStorage.getItem("avis")) || [];
                 avisListe.innerHTML = "";
                 avisEnregistres.forEach(avis => {
-                    ajouterAvis(avis.note, avis.commentaire);
+                    ajouterAvis(avis.pseudo, avis.note, avis.commentaire);
                 });
             }
 
             // Ajouter un avis à la liste
-            function ajouterAvis(note, commentaire) {
+            function ajouterAvis(pseudo, note, commentaire) {
                 const avisDiv = document.createElement("div");
                 avisDiv.classList.add("avis");
                 avisDiv.innerHTML = `
-                    <p><strong>Note : </strong> ${"🚗".repeat(note)}</p>
+                    <p><strong>${pseudo}</strong> - Note : ${"🚗".repeat(note)}</p>
                     <p>${commentaire}</p>
                 `;
                 avisListe.prepend(avisDiv);
@@ -223,20 +224,29 @@
             form.addEventListener("submit", function(event) {
                 event.preventDefault();
 
+                const pseudo = document.getElementById("pseudo").value.trim();
                 const noteSelectionnee = document.querySelector('input[name="note"]:checked');
-                const commentaire = document.getElementById("commentaire").value;
+                const commentaire = document.getElementById("commentaire").value.trim();
 
+                if (!pseudo) {
+                    alert("Veuillez entrer un pseudo.");
+                    return;
+                }
                 if (!noteSelectionnee) {
                     alert("Veuillez sélectionner une note.");
+                    return;
+                }
+                if (!commentaire) {
+                    alert("Veuillez entrer un commentaire.");
                     return;
                 }
 
                 const note = noteSelectionnee.value;
 
                 // Ajouter l'avis à la liste et l'enregistrer dans LocalStorage
-                ajouterAvis(note, commentaire);
+                ajouterAvis(pseudo, note, commentaire);
                 const avisEnregistres = JSON.parse(localStorage.getItem("avis")) || [];
-                avisEnregistres.push({ note, commentaire });
+                avisEnregistres.push({ pseudo, note, commentaire });
                 localStorage.setItem("avis", JSON.stringify(avisEnregistres));
 
                 // Réinitialiser le formulaire
@@ -250,7 +260,6 @@
 
 </body>
 </html>
-
 
   
 
